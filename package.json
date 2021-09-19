@@ -1,20 +1,23 @@
 {
   "name": "discord-bot",
   "version": "1.0.0",
-  "description": "Discord bot",
+  "description": "Un bot Discord",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "eslint": "eslint .",
-    "start:bot": "node .",
-    "start:deploy": "node src/deploy-commands.js"
+    "deploy": "node src/deploy-commands.js",
+    "start": "node .",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/world-dev-fr/discord-bot.git"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "ToToRiina",
+    "email": "themonsterdev@gmail.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/world-dev-fr/discord-bot/issues"
@@ -28,5 +31,9 @@
   },
   "devDependencies": {
     "eslint": "^7.32.0"
+  },
+  "engines": {
+    "node": "^16.9.1",
+    "npm": "^7.23.0"
   }
 }

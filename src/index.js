@@ -1,37 +1,33 @@
-const { readdirSync } = require('fs')
-const { resolve } = require('path')
-
 // Require the necessary discord.js classes
-const { Client, Collection, Intents } = require('discord.js')
+const { Client, Intents } = require('discord.js')
+
+// Place your client and guild ids here
 const { token } = require('../discord.json')
 
-// Create a new client instance
-const client = new Client({
+const Commands = require('./commands')
+const Events = require('./events')
+
+const intents = new Intents([
     // L' Intents.FLAGS.GUILDS option d'intentions est nécessaire pour que votre client fonctionne correctement.
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
-})
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+    // Si vous avez besoin que votre bot reçoive des messages ( MESSAGE_CREATE - "messageCreate"dans discord.js)
+    // - vous avez besoin de l' GUILD_MESSAGES intention.
+    Intents.FLAGS.GUILD_MESSAGES,
+    // Si vous souhaitez que votre bot publie des messages de bienvenue pour les nouveaux membres ( GUILD_MEMBER_ADD - "guildMemberAdd" dans discord.js),
+    // - vous avez besoin de l' GUILD_MEMBERS intention, etc.
+    Intents.FLAGS.GUILD_MEMBERS,
+    Intents.FLAGS.GUILD_PRESENCES,
+])
+
+// Create a new client instance
+const client = new Client({ intents })
 
 // Commands
-client.commands = new Collection()
-const commandFiles = readdirSync(resolve(__dirname, 'commands')).filter(file => file.endsWith('.js'))
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`)
-    // Set a new item in the Collection
-    // With the key as the command name and the value as the exported module
-    client.commands.set(command.data.name, command)
-}
+Commands(client)
 
 // Events
-const eventFiles = readdirSync(resolve(__dirname, 'events')).filter(file => file.endsWith('.js'))
-for (const file of eventFiles) {
-    const event = require(`./events/${file}`)
-
-    if (event.once) {
-        client.once(event.name, (...args) => event.execute(...args.concat([client])))
-    } else {
-        client.on(event.name, (...args) => event.execute(...args.concat([client])))
-    }
-}
+Events(client)
 
 // Login to Discord with your client's token
 client.login(token)

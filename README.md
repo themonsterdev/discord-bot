@@ -3,6 +3,7 @@
 Discord bot
 
 - [Conditions préalables](#preconditions)
+- [Documentation](./docs/index.md)
 - [Licence](#licensing)
 
 <div id="preconditions"></div>
