@@ -1,5 +1,7 @@
 # discord-bot
 
+[![Node.js CI](https://github.com/world-dev-fr/discord-bot/actions/workflows/node.js.yml/badge.svg?branch=1.0)](https://github.com/world-dev-fr/discord-bot/actions/workflows/node.js.yml)
+
 Discord bot
 
 - [Conditions préalables](#preconditions)
